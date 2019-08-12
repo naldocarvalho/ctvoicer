@@ -10,18 +10,24 @@ namespace Infrastructure.Data.Context
         public SQLiteContext(DbContextOptions<SQLiteContext> options) : base(options)
         { }
 
+        public SQLiteContext()
+        { }
+
         #region DbSet
         public DbSet<Vehicle> Vehicles { get; set; }
         #endregion
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Filename=fleetmanager.db", options =>
+            if (!optionsBuilder.IsConfigured)
             {
-                options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
-            });
+                optionsBuilder.UseSqlite("Filename=fleetmanager.db", options =>
+                {
+                    options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
+                });
 
-            base.OnConfiguring(optionsBuilder);
+                base.OnConfiguring(optionsBuilder);
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
