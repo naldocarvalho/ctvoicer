@@ -11,7 +11,7 @@ namespace FleetManager.AppConsole.Pages
         private readonly VehicleService service = new VehicleService(new VehicleRepository());
 
         public PageInsert(Program program) 
-            : base("Inserir Veículo", program)
+            : base("Cadastro de Veículo", program)
         {
             
         }

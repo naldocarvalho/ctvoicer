@@ -14,7 +14,7 @@ namespace FleetManager.AppConsole.Pages
         private readonly VehicleService service = new VehicleService(new VehicleRepository());
 
         public PageList(Program program)
-            : base("Page List", program)
+            : base("Listagem de todos os veículos", program)
         {
         }
 
@@ -33,10 +33,7 @@ namespace FleetManager.AppConsole.Pages
                     Config = TableConfiguration.Default()
                 };
 
-                foreach (Vehicle vehicle in vehicles)
-                {
-                    table.AddRow(vehicle.Id, vehicle.Chassis, vehicle.Color, vehicle.Type, vehicle.PassengerCapacity);
-                }
+                vehicles.ToList().ForEach(x => table.AddRow(x.Id, x.Chassis, x.Color, x.Type, x.PassengerCapacity));
 
                 ConsoleTables tables = new ConsoleTables(table);
                 Output.WriteLine(tables.ToString());
