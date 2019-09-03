@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Domain.Entities;
-using Domain.Interfaces;
+﻿using Domain.Entities;
 using Infrastructure.Data.Context;
+using Interface.Repository;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
-namespace Infrastructure.Data.Repositories
+namespace Repository.Vehicles
 {
-    public class VehicleRepository : IVehicle
+    public class VehicleRepository : IVehicleRepository
     {
         private readonly DbContextOptions<SQLiteContext> options;
 

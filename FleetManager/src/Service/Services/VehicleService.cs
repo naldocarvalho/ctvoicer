@@ -1,7 +1,7 @@
 ﻿using Domain.Entities;
-using Domain.Interfaces;
 using FluentValidation;
-using Infrastructure.Data.Repositories;
+using Interface.Repository;
+using Repository.Vehicles;
 using Service.Validators;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Service.Services
 {
-    public class VehicleService : IVehicle
+    public class VehicleService : IVehicleRepository
     {
         private readonly VehicleRepository repository;
 

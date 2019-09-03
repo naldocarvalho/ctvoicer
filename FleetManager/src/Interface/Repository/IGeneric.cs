@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Domain.Interfaces
+namespace Interface.Repository
 {
     public interface IGeneric<T> where T : class
     {

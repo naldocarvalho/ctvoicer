@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
 using EasyConsoleCore;
-using Infrastructure.Data.Repositories;
+using Repository.Vehicles;
 using Service.Services;
 using System;
 
