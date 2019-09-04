@@ -3,7 +3,7 @@ using FluentValidation;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Domain.Interfaces
+namespace Interface.Service
 {
     public interface IService<T> where T : BaseEntity
     {

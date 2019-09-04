@@ -1,9 +1,9 @@
 ﻿using Domain.Entities;
 using System.Threading.Tasks;
 
-namespace Interface.Repository
+namespace Interface.Service
 {
-    public interface IVehicleRepository : IGeneric<Vehicle>
+    public interface IVehicleService
     {
         Task<Vehicle> GetByChassisAsync(string chassis);
     }

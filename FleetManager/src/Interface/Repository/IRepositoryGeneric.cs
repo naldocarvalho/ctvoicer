@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Interface.Repository
 {
-    public interface IGeneric<T> where T : class
+    public interface IRepositoryGeneric<T> where T : class
     {
         Task<T> GetAsync(int id);
         Task<IList<T>> ListAsync();

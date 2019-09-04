@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
 using FluentValidation;
-using Interface.Repository;
+using Interface.Repository.Vehicles;
 using Repository.Vehicles;
 using Service.Validators;
 using System;
