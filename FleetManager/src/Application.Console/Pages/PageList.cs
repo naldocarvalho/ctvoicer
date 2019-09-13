@@ -1,7 +1,8 @@
 ﻿using BetterConsoleTables;
 using Domain.Entities;
 using EasyConsoleCore;
-using Repository.Vehicles;
+using Interface.Service;
+using Microsoft.Extensions.DependencyInjection;
 using Service.Services;
 using System;
 using System.Collections.Generic;
@@ -11,20 +12,28 @@ namespace FleetManager.AppConsole.Pages
 {
     class PageList : Page
     {
-        private readonly VehicleService service = new VehicleService(new VehicleRepository());
+        private static IServiceProvider serviceProvider;
 
-        public PageList(Program program)
-            : base("Listagem de todos os veículos", program)
+        public PageList(Program program) : base("Listagem de todos os veículos", program)
         {
+
         }
 
         public async override void Display()
         {
+            //var serviceProvider = new ServiceCollection()
+            //    .AddSingleton<IVehicleService, VehicleService>()
+            //    .BuildServiceProvider();
+
+            RegisterServices();
+
+            var vehicleService = serviceProvider.GetService<IVehicleService>();
+
             base.Display();
 
             Output.WriteLine("");
 
-            IList<Vehicle> vehicles = await service.ListAsync();
+            IList<Vehicle> vehicles = await vehicleService.ListAsync();
 
             if (vehicles.Any())
             {
@@ -44,9 +53,31 @@ namespace FleetManager.AppConsole.Pages
                 Output.WriteLine("");
             }
 
+            DisposeServices();
+
             Input.ReadString("Pressione [Enter] para voltar para o Menu Principal");
 
             Program.NavigateHome();
+        }
+
+        private static void RegisterServices()
+        {
+            var collection = new ServiceCollection();
+            collection.AddScoped<IVehicleService, VehicleService>();
+            serviceProvider = collection.BuildServiceProvider();
+        }
+
+        private static void DisposeServices()
+        {
+            if (serviceProvider == null)
+            {
+                return;
+            }
+
+            if (serviceProvider is IDisposable)
+            {
+                ((IDisposable)serviceProvider).Dispose();
+            }
         }
     }
 }

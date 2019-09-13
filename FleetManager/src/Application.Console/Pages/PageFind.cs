@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using EasyConsoleCore;
-using Repository.Vehicles;
+using Interface.Service;
+using Microsoft.Extensions.DependencyInjection;
 using Service.Services;
 using System;
 
@@ -8,15 +9,18 @@ namespace FleetManager.AppConsole.Pages
 {
     class PageFind : Page
     {
-        private readonly VehicleService service = new VehicleService(new VehicleRepository());
-
-        public PageFind(Program program)
-            : base("Localizar Veículo", program)
+        public PageFind(Program program) : base("Localizar Veículo", program)
         {
         }
 
         public async override void Display()
         {
+            var serviceProvider = new ServiceCollection()
+                .AddScoped<IVehicleService, VehicleService>()
+                .BuildServiceProvider();
+
+            var vehicleService = serviceProvider.GetService<IVehicleService>();
+
             base.Display();
 
             Output.WriteLine("");
@@ -26,7 +30,7 @@ namespace FleetManager.AppConsole.Pages
 
             if (!string.IsNullOrEmpty(chassi))
             {
-                Vehicle vehicle = await service.GetByChassisAsync(chassi);
+                Vehicle vehicle = await vehicleService.GetByChassisAsync(chassi);
 
                 if (vehicle == null)
                 {

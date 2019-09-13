@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using EasyConsoleCore;
-using Repository.Vehicles;
+using Interface.Service;
+using Microsoft.Extensions.DependencyInjection;
 using Service.Services;
 using System;
 
@@ -8,15 +9,18 @@ namespace FleetManager.AppConsole.Pages
 {
     class PageEdit : Page
     {
-        private readonly VehicleService service = new VehicleService(new VehicleRepository());
-
-        public PageEdit(Program program)
-            : base("Editar Veículo", program)
+        public PageEdit(Program program) : base("Editar Veículo", program)
         {
         }
 
         public async override void Display()
         {
+            var serviceProvider = new ServiceCollection()
+                .AddScoped<IVehicleService, VehicleService>()
+                .BuildServiceProvider();
+
+            var vehicleService = serviceProvider.GetService<IVehicleService>();
+
             base.Display();
 
             Output.WriteLine("");
@@ -26,7 +30,7 @@ namespace FleetManager.AppConsole.Pages
 
             if (!string.IsNullOrEmpty(chassi))
             {
-                Vehicle vehicle = await service.GetByChassisAsync(chassi);
+                Vehicle vehicle = await vehicleService.GetByChassisAsync(chassi);
 
                 if (vehicle == null)
                 {
@@ -39,8 +43,7 @@ namespace FleetManager.AppConsole.Pages
 
                     if (!string.IsNullOrWhiteSpace(cor))
                     {
-                        await service.UpdateAsync(vehicle);
-
+                        vehicleService.Update(vehicle);
                         Output.WriteLine("");
                         Output.WriteLine(ConsoleColor.Green, "Cadastro atualizado com sucesso.");
                     }

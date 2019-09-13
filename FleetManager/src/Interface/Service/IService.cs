@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Interface.Service
 {
-    public interface IService<T> where T : BaseEntity
+    public interface IService<T> where T : EntityGeneric
     {
         Task<T> Post<V>(T obj) where V : AbstractValidator<T>;
 

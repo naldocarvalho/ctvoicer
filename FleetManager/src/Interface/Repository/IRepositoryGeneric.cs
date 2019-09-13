@@ -8,7 +8,8 @@ namespace Interface.Repository
         Task<T> GetAsync(int id);
         Task<IList<T>> ListAsync();
         Task AddAsync(T entity);
-        Task UpdateAsync(T entity);
-        Task DeleteAsync(int id);
+        void Update(T entity);
+        void Update(IEnumerable<T> entities);
+        void Delete(T entity);
     }
 }

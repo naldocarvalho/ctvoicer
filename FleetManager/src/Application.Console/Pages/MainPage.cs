@@ -5,8 +5,7 @@ namespace FleetManager.AppConsole.Pages
 {
     class MainPage : MenuPage
     {
-        public MainPage(Program program) 
-            : base("Menu Principal", program,
+        public MainPage(Program program) : base("Menu Principal", program,
                 new Option("Inserir um veículo", () => program.NavigateTo<PageInsert>()),
                 new Option("Editar um veículo existente", () => program.NavigateTo<PageEdit>()),
                 new Option("Deletar um veículo existente", () => program.NavigateTo<PageDelete>()),

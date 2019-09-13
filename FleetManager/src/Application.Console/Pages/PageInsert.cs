@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using EasyConsoleCore;
-using Repository.Vehicles;
+using Interface.Service;
+using Microsoft.Extensions.DependencyInjection;
 using Service.Services;
 using System;
 
@@ -8,16 +9,19 @@ namespace FleetManager.AppConsole.Pages
 {
     class PageInsert : Page
     {
-        private readonly VehicleService service = new VehicleService(new VehicleRepository());
-
-        public PageInsert(Program program) 
-            : base("Cadastro de Veículo", program)
+        public PageInsert(Program program) : base("Cadastro de Veículo", program)
         {
-            
+
         }
 
         public async override void Display()
         {
+            var serviceProvider = new ServiceCollection()
+                .AddScoped<IVehicleService, VehicleService>()
+                .BuildServiceProvider();
+
+            var vehicleService = serviceProvider.GetService<IVehicleService>();
+
             base.Display();
 
             Output.WriteLine("");
@@ -35,7 +39,7 @@ namespace FleetManager.AppConsole.Pages
                 Type typeVehicle = Input.ReadEnum<Type>("Informe o tipo  :");
                 vehicle.Type = typeVehicle.ToString();
 
-                Vehicle result = await service.GetByChassisAsync(chassi);
+                Vehicle result = await vehicleService.GetByChassisAsync(chassi);
 
                 if (result != null)
                 {
@@ -44,7 +48,7 @@ namespace FleetManager.AppConsole.Pages
                 }
                 else
                 {
-                    await service.AddAsync(vehicle);
+                    await vehicleService.AddAsync(vehicle);
 
                     Output.WriteLine("");
                     Output.WriteLine(ConsoleColor.Green, "Cadastro realizado com sucesso.");

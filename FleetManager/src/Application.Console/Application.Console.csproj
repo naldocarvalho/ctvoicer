@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="BetterConsoleTables" Version="1.0.3" />
     <PackageReference Include="EasyConsoleCore" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>

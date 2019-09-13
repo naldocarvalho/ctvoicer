@@ -2,7 +2,7 @@
 
 namespace Domain.Entities
 {
-    public class Vehicle : BaseEntity
+    public class Vehicle : EntityGeneric
     {
         public string Chassis { get; set; }
         public string Color { get; set; }

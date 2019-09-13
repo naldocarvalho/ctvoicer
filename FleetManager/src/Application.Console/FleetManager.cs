@@ -5,8 +5,7 @@ namespace FleetManager.AppConsole
 {
     class FleetManager : Program
     {
-        public FleetManager() 
-            : base("Menu Principal", breadcrumbHeader: true)
+        public FleetManager() : base("Menu Principal", breadcrumbHeader: true)
         {
             AddPage(new MainPage(this));
             AddPage(new PageInsert(this));
